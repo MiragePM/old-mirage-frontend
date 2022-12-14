@@ -71,5 +71,5 @@
     let element = document.querySelector("#link-to-script");
     let domain = window.location.host;
 
-    element.textContent = `/bin/bash -c "$(curl -fsSL https://${domain}/start-on-unix.sh)"`
+    element.textContent = `/bin/bash -c "$(curl -fsSL http://${domain}/start-on-unix.sh)"`
 </script>

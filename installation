@@ -18,11 +18,8 @@ fi
 
 git clone https://github.com/ZueffC/mirage-cli $HOME/.mirage/mirage
 cd $HOME/.mirage/mirage/
-go build main.go -o ./build
-cd ./build
+go build -o mirage main.go
 
-echo -e "Mirage was builded successfuly! Well, now you should add path to this folder :"
-echo -e "${pwd}"
-echo -e "into your system PATH variable. Enjoy the most lightweight package manager in the world!"
-
-
+echo -e "${GREEN} Mirage was builded successfuly! Well, now you should add path to this folder :"
+pwd
+echo -e "into your system PATH variable. Enjoy the most lightweight package manager in the world! ${NC}"

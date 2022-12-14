@@ -1,4 +1,5 @@
 const fastify = require('fastify')();
+const fs = require('fs');
 
 const fastifySession = require('@fastify/session');
 const fastifyCookie = require('@fastify/cookie');
@@ -11,7 +12,7 @@ const authRouter = require('./routes/auth');
 const profileRouter = require('./routes/profile');
 const packagesRouter = require('./routes/packages');
 
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 
 {
@@ -64,11 +65,12 @@ fastify.get('/start-on-unix.sh', (req, reply) => {
   const buffer = fs.readFileSync('./installation');
   reply.type('text/plain');
   reply.send(buffer);
-})
+});
 
 
 const start = async () => {
     try {
+	console.log(PORT);
         await fastify.listen({
             host: "0.0.0.0",
             port: PORT
