@@ -16,7 +16,7 @@ then
 	exit 255
 fi
 
-git clone https://github.com/ZueffC/mirage-cli $HOME/.mirage/mirage
+git clone https://github.com/MiragePM/mirage-cli $HOME/.mirage/mirage
 cd $HOME/.mirage/mirage/
 go build -o mirage main.go
 
