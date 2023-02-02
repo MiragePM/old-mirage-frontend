@@ -1,5 +1,5 @@
 <select id="node_selector" name="node_url" required>
-    <option value="" selected>Node</option>
+    <option value="http://zueffc.ml:1984" selected>Default node</option>
     <option value="custom">Custom</option>
 </select>
 
@@ -12,7 +12,7 @@
 
         if (this.value == "custom") {
             block.innerHTML = `
-                <input type="url" name="node_url" placeholder="Ur custom node url" aria-label="" autocomplete="url" required>
+                <input type="url" name="node_url" placeholder="Your custom node url" aria-label="" autocomplete="url" required>
             `;
             block.name = "";
         } else {
