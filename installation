@@ -17,8 +17,7 @@ then
 fi
 
 git clone https://github.com/MiragePM/mirage-cli $HOME/.mirage/mirage
-cd $HOME/.mirage/mirage/
-go build -o mirage cmd/main.go
+cd $HOME/.mirage/mirage/ && go build -o mirage cmd/main.go
 
 echo -e "${GREEN} Mirage was builded successfuly! Well, now you should add path to this folder :"
 pwd
