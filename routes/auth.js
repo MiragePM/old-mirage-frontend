@@ -26,32 +26,32 @@ async function loginPostRoute(req, res) {
     var query_url = "";
     var node_url = "";
 
+    query_url = getRightUrl(data.node_url, "users/auth");
+    node_url = data.node_url
+
     if (Array.isArray(data.node_url)) {
         query_url = getRightUrl(data.node_url[1], "users/auth");
         node_url = data.node_url[1]
-    } else {
-        query_url = getRightUrl(data.node_url, "users/auth");
-        node_url = data.node_url
     }
 
     console.log(query_url, node_url);
 
     axios.post(query_url, {
         type: "login",
-        nick: data.nick,
+        nick: data.nick, 
         email: data.email,
         password: SHA384(data.password).toString(),
     }).then(function(response) {
         if (response.data.ID > 0 && response.data.nick.length > 0) {
-            console.log(response.data)
             req.session.node_url = node_url;
             req.session.id = response.data.ID;
             req.session.nick = response.data.nick;
             req.session.email = response.data.email;
+            req.session.save();
         }
     });
 
-    res.redirect("/profile");
+    res.redirect("/");
 };
 
 async function registerPostRoute(req, res) {
@@ -59,16 +59,15 @@ async function registerPostRoute(req, res) {
         let data = req.body;
         var query_url = "";
         var node_url = "";
+        
+        query_url = getRightUrl(data.node_url, "users/auth");
+        node_url = data.node_url;
     
         if (Array.isArray(data.node_url)) {
             query_url = getRightUrl(data.node_url[1], "users/auth");
-            node_url = data.node_url[1]
-        } else {
-            query_url = getRightUrl(data.node_url, "users/auth");
-            node_url = data.node_url
+            node_url = data.node_url[1];
         }
     
-
         axios.post(query_url, {
             type: "registration",
             nick: data.nick,
@@ -80,8 +79,6 @@ async function registerPostRoute(req, res) {
     } else {
         res.redirect("/");
     }
-
-    //res.redirect("/login");
 };
 
 module.exports = {
