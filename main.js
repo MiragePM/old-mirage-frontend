@@ -40,11 +40,6 @@ const PORT = process.env.PORT || 5000;
         next();
     });
 
-    fastify.addHook('preHandler', (request, reply, next) => {
-        request.session = {ID, nick, email, node_url}
-        next();
-    })
-
     fastify.register(require("@fastify/view"), {
         engine: {
             eta: require("eta"),
