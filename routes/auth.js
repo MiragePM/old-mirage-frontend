@@ -23,9 +23,18 @@ async function registrationRoute(req, res) {
 
 async function loginPostRoute(req, res) {
     let data = req.body;
-    let query_url = getRightUrl(data.node_url[1], "users/auth");
+    var query_url = "";
+    var node_url = "";
 
-    console.log(query_url);
+    if (Array.isArray(data.node_url)) {
+        query_url = getRightUrl(data.node_url[1], "users/auth");
+        node_url = data.node_url[1]
+    } else {
+        query_url = getRightUrl(data.node_url, "users/auth");
+        node_url = data.node_url
+    }
+
+    console.log(query_url, node_url);
 
     axios.post(query_url, {
         type: "login",
@@ -35,19 +44,30 @@ async function loginPostRoute(req, res) {
     }).then(function(response) {
         if (response.data.ID > 0 && response.data.nick.length > 0) {
             console.log(response.data)
-            req.session.node_url = data.node_url[1];
+            req.session.node_url = node_url;
             req.session.id = response.data.ID;
             req.session.nick = response.data.nick;
             req.session.email = response.data.email;
         }
     });
+
     res.redirect("/profile");
 };
 
 async function registerPostRoute(req, res) {
-    if (req.body.node_url[0] == "custom" && req.body.node_url[1]) {
-        let data = req.body
-        let query_url = getRightUrl(data.node_url[1], "users/auth");
+    if (req.body.node_url) {
+        let data = req.body;
+        var query_url = "";
+        var node_url = "";
+    
+        if (Array.isArray(data.node_url)) {
+            query_url = getRightUrl(data.node_url[1], "users/auth");
+            node_url = data.node_url[1]
+        } else {
+            query_url = getRightUrl(data.node_url, "users/auth");
+            node_url = data.node_url
+        }
+    
 
         axios.post(query_url, {
             type: "registration",

@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 5000;
     fastify.register(fastifySession, {
         secret: crypto.randomBytes(20).toString('hex'),
         cookie: {
-            secure: false
+            secure: false,
         },
         expires: 1800000
     });

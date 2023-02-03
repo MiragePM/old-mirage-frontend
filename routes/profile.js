@@ -5,6 +5,7 @@ const {
 
 
 async function profileRoute(req, res) {
+    console.log(req.session.ID)
     if (!req.session.ID && !req.session.node_url) {
         res.redirect("/login");
     } else {
