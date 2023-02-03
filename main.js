@@ -37,13 +37,10 @@ const PORT = process.env.PORT || 5000;
     fastify.addHook('preHandler', function(req, reply, next) {
         reply.locals = {}
         reply.locals.session = req.session;
+        console.log(req.session.id, req.session.nick, req.session.node_url);
         next();
     });
-
-    app.addHook('preHandler', (request, reply, next) => {
-        request.session = {ID, nick, email, node_url}
-        next();
-    })
+ 
 
     fastify.register(require("@fastify/view"), {
         engine: {
@@ -75,7 +72,7 @@ fastify.get('/start-on-unix.sh', (req, reply) => {
 
 const start = async () => {
     try {
-	console.log(PORT);
+	    console.log(`Now, we're running on the :${PORT} port;`, );
         await fastify.listen({
             host: "0.0.0.0",
             port: PORT
