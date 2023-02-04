@@ -4,6 +4,11 @@ const fs = require('fs');
 const fastifySession = require('@fastify/session');
 const fastifyCookie = require('@fastify/cookie');
 
+const AdminJSFastify = require('@adminjs/fastify');
+const AdminJSSequelize = require('@adminjs/sequelize');
+const AdminJS = require('adminjs');
+
+
 const path = require('node:path');
 const crypto = require('node:crypto');
 
@@ -13,6 +18,8 @@ const profileRouter = require('./routes/profile');
 const packagesRouter = require('./routes/packages');
 
 const PORT = process.env.PORT || 5000;
+
+const { sequelize, Pages } = require('./database.js');
 
 
 {
@@ -72,7 +79,23 @@ fastify.get('/start-on-unix.sh', (req, reply) => {
 
 const start = async () => {
     try {
-	    console.log(`Now, we're running on the :${PORT} port;`, );
+        console.log(`Now, we're running on the :${PORT} port;`, );
+
+        AdminJS.registerAdapter({
+            Resource: AdminJSSequelize.Resource,
+            Database: AdminJSSequelize.Database,
+          })
+
+        const admin = new AdminJS({
+            resources: [Pages],
+            rootPath: '/admin'
+        });
+
+        await AdminJSFastify.buildRouter(
+            admin,
+            fastify,
+        )
+
         await fastify.listen({
             host: "0.0.0.0",
             port: PORT

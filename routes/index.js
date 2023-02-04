@@ -1,5 +1,9 @@
+const {sequelize, Pages} = require('../database');
+
+
 async function indexRoute(req, res) {
-    await res.view("index.eta", { title: "Mirage - Lightweight and efficient package manager" });
+    let pageInfo = await Pages.findOne({where: {Name: "index"}});
+    await res.view("index.eta", { title: pageInfo.Title });
 }
 
 module.exports = { indexRoute: indexRoute };
