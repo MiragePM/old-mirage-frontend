@@ -18,18 +18,16 @@ const profileRouter = require('./routes/profile');
 const packagesRouter = require('./routes/packages');
 
 const PORT = process.env.PORT || 5000;
-
-const { sequelize, Pages } = require('./database.js');
-
+const secret = crypto.randomBytes(20).toString('hex');
 
 {
     fastify.register(require('@fastify/formbody'));
 
     fastify.register(fastifyCookie);
     fastify.register(fastifySession, {
-        secret: crypto.randomBytes(20).toString('hex'),
+        secret: secret,
         cookie: {
-            secure: false,
+            secure: true,
         },
         expires: 1800000
     });
@@ -46,8 +44,7 @@ const { sequelize, Pages } = require('./database.js');
         reply.locals.session = req.session;
         console.log(req.session.id, req.session.nick, req.session.node_url);
         next();
-    });
- 
+    }); 
 
     fastify.register(require("@fastify/view"), {
         engine: {
@@ -70,38 +67,23 @@ fastify.get("/registration", authRouter.registrationRoute);
 fastify.post("/registration", authRouter.registerPostRoute);
 fastify.post("/login", authRouter.loginPostRoute);
 
-fastify.get('/start-on-unix.sh', (req, reply) => {
-  const buffer = fs.readFileSync('./installation');
-  reply.type('text/plain');
-  reply.send(buffer);
+fastify.get('/start-on-unix.sh', (req, res) => {
+    const buffer = fs.readFileSync('./installation');
+    res.type('text/plain');
+    res.send(buffer);
 });
 
 
 const start = async () => {
     try {
-        console.log(`Now, we're running on the :${PORT} port;`, );
-
-        AdminJS.registerAdapter({
-            Resource: AdminJSSequelize.Resource,
-            Database: AdminJSSequelize.Database,
-          })
-
-        const admin = new AdminJS({
-            resources: [Pages],
-            rootPath: '/admin'
-        });
-
-        await AdminJSFastify.buildRouter(
-            admin,
-            fastify,
-        )
+        console.log(`Now, we're running on the :${PORT} port;`);
 
         await fastify.listen({
             host: "0.0.0.0",
             port: PORT
         });
-    } catch (err) {
-        fastify.log.error(err);
+    } catch (error) {
+        fastify.log.error(error);
         process.exit(1);
     }
 }
