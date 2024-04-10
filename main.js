@@ -13,7 +13,7 @@ const authRouter = require('./routes/auth');
 const profileRouter = require('./routes/profile');
 const packagesRouter = require('./routes/packages');
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5050;
 const secret = crypto.randomBytes(20).toString('hex');
 
 {

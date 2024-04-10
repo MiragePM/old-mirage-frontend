@@ -25,7 +25,6 @@
             <details role="list" dir="rtl">
                 <summary aria-haspopup="listbox" role="link" class="secondary">Profile</summary>
                 <ul role="listbox">
-                    <li><a href="/profile">See it</a></li>
                     <li><a href="/packages">Packages</a></li>
                 </ul>
             </details>
