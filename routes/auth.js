@@ -11,13 +11,13 @@ function getRightUrl(url, adding) {
 
 async function loginRoute(req, res) {
     await res.view("login", {
-        "title": "Login to Mirage"
+        "title": "Login to Quanta"
     });
 };
 
 async function registrationRoute(req, res) {
     await res.view("registration", {
-        "title": "Registration to Mirage"
+        "title": "Registration to Quanta"
     });
 };
 

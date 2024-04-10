@@ -1,14 +1,14 @@
 {
-    "name": "mirage-web-app",
-    "version": "1.0.0",
-    "description": "",
+    "name": "quanta-web-app",
+    "version": "1.1.0",
+    "description": "Frontend application for decentralized Quanta package manager",
     "main": "index.js",
     "scripts": {
-        "start": "node index.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "bun run index.js",
+        "install": "bun install"
     },
-    "author": "",
-    "license": "ISC",
+    "author": "ZueffC",
+    "license": "WTFPL",
     "dependencies": {
         "@adminjs/fastify": "^3.0.1",
         "@adminjs/sequelize": "^3.0.0",

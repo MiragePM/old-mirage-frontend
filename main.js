@@ -4,10 +4,6 @@ const fs = require('fs');
 const fastifySession = require('@fastify/session');
 const fastifyCookie = require('@fastify/cookie');
 
-const AdminJSFastify = require('@adminjs/fastify');
-const AdminJSSequelize = require('@adminjs/sequelize');
-const AdminJS = require('adminjs');
-
 
 const path = require('node:path');
 const crypto = require('node:crypto');

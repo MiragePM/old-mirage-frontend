@@ -1,4 +1,4 @@
-const {sequelize, Pages} = require('../database');
+const {Pages} = require('../database');
 
 
 async function indexRoute(req, res) {

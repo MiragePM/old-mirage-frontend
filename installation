@@ -12,13 +12,13 @@ fi
 
 if ! command -v go &> /dev/null
 then
-	echo "${RED}You should install GoLang on your machine!${NC}"
+	echo "${RED}You should install Go>=1.17 on your machine!${NC}"
 	exit 255
 fi
 
-git clone https://github.com/MiragePM/mirage-cli $HOME/.mirage/mirage
-cd $HOME/.mirage/mirage/ && go build -o mirage cmd/main.go
+git clone https://github.com/QuantaPM/quanta-cli $HOME/.quanta/quanta
+cd $HOME/.quanta/quanta/ && go build -o quanta cmd/main.go
 
-echo -e "${GREEN} Mirage was builded successfuly! Well, now you should add path to this folder :"
+echo -e "${GREEN} Quanta was builded successfuly! Well, now you should add path to this folder :"
 pwd
 echo -e "into your system PATH variable. Enjoy the most lightweight package manager in the world! ${NC}"
